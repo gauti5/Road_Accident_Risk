@@ -5,4 +5,5 @@ ipykernel
 tensorflow
 pymongo
 certifi
+dotenv
 #-e.
