@@ -25,7 +25,7 @@ class DataIngestion:
             print(Data)
             logging.info(Data.head(10))
             logging.info(Data.shape)
-            logging.info(Data.describe)
+            logging.info(Data.describe())
             logging.info(Data.info())
             
             os.makedirs(os.path.dirname(os.path.join(self.ingestion_config.raw_data_path)), exist_ok=True)
@@ -50,7 +50,7 @@ class DataIngestion:
             logging.info("Data Ingestion Completed!!!")
             
             return (
-                self.ingestion_config.test_data_path,
+                self.ingestion_config.train_data_path,
                 self.ingestion_config.test_data_path
             )
             
