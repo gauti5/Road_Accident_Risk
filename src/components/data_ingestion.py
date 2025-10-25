@@ -23,6 +23,8 @@ class DataIngestion:
         try:
             Data=pd.read_csv("Notebook/Data.csv")
             print(Data)
+            
+            Data.drop('id', axis=1, inplace=True)
             logging.info(Data.head(10))
             logging.info(Data.shape)
             logging.info(Data.describe())
