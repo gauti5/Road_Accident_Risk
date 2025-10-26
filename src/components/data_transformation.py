@@ -3,6 +3,7 @@ import sys
 
 from src.logging import logging
 from src.exception import CustomException
+from src.utils import save_object
 
 import pandas as pd
 import numpy as np
@@ -18,7 +19,7 @@ class Data_Transformation_config:
     preperocessor_file_path:str=os.path.join("Artifacts", "preprocessor.pkl")
     
 class DataTransformation:
-    def _init__(self):
+    def __init__(self):
         self.data_transformation_config=Data_Transformation_config()
         
     def get_data_transformation(self):
@@ -60,6 +61,46 @@ class DataTransformation:
         except Exception as e:
             logging.info("Exception occured during the data transformation")
             raise CustomException(e,sys)
+    
+    
+    def initiate_data_transformation(self, train_path, test_path):
+        try:
+            train_df=pd.read_csv(train_path)
+            test_df=pd.read_csv(test_path)
+            
+            preprocessor_obj=self.get_data_transformation()
+            
+            logging.info("reading the training and testing data")
+            logging.info(f"Training DataFrame : \n{train_df.head(5).to_string()}")
+            logging.info(f"Testing DataFrame : \n{test_df.head(5).to_string()}")
+            
+            input_features_train_df=train_df.drop('accident_risk', axis=1)
+            target_features_train_df=train_df['accident_risk']
+            
+            input_features_test_df=test_df.drop('accident_risk', axis=1)
+            target_features_test_df=test_df['accident_risk']
+            
+            input_features_train_arr=preprocessor_obj.fit_transform(input_features_train_df)
+            input_features_test_arr=preprocessor_obj.transform(input_features_test_df)
+            
+            train_arr=np.c_[input_features_train_arr, np.array(target_features_train_df)]
+            test_arr=np.c_[input_features_test_arr, np.array(target_features_test_df)]
+            
+            save_object(
+                file_path=self.data_transformation_config.preperocessor_file_path,
+                obj=preprocessor_obj
+            )
+            
+            logging.info("Preprocessing Pickle file saved!!!")
+            
+            return (
+                train_arr, test_arr
+            )
+            
+        except Exception as e:
+            logging.info("error occured during the data transformation")
+            raise CustomException(e,sys)
+            
     
     
 
