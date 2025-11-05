@@ -1,0 +1,107 @@
+road_type               517754 non-null  object 
+ 2   num_lanes               517754 non-null  int64  
+ 3   curvature               517754 non-null  float64
+ 4   speed_limit             517754 non-null  int64  
+ 5   lighting                517754 non-null  object 
+ 6   weather                 517754 non-null  object 
+ 7   road_signs_present      517754 non-null  bool   
+ 8   public_road             517754 non-null  bool   
+ 9   time_of_day             517754 non-null  object 
+ 10  holiday                 517754 non-null  bool   
+ 11  school_season           517754 non-null  bool   
+ 12  num_reported_accidents  517754 non-null  int64 
+
+
+<html>
+  <head> 
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+    <title>Road Accident Risk</title>
+  </head>
+<body>
+<h1><center>Road Accident Riskn</center></h1>
+<form action="{{url_for('predict_datapoint')}}" method="POST">
+
+    
+
+    <div class="form-group">
+
+      <label for="num_lanes">Num_lanes:</label>
+      <input type="text" id="num_lanes" name="num_lanes" placeholder="Enter num_lanes (int)">
+    </div>
+
+    <div class="form-group">
+        <label for="curvature">Curvature:</label>
+        <input type="text" id="curvature" name="curvature" placeholder="Enter curvature (float)">
+    </div>
+
+    <div class="form-group">  
+        <label for="speed_limit">Speed limit:</label>
+        <input type="text" id="speed_limit" name="speed_limit" placeholder="Enter speed_limit (int)">
+    </div>
+    
+
+
+<div class="form-group">
+  <label for="lighting">lighting:</label>
+  <select id="lighting" name="lighting">
+    <option value="dim">dim</option>
+    <option value="daylight">daylight</option>
+    <option value="night">night</option>
+  </select>
+</div>
+  
+<div class="form-group">
+  <label for="weather">weather:</label>
+  <select id="weather" name="weather">
+    <option value="foggy">foggy</option>
+    <option value="clear">clear</option>
+    <option value="rainy">rainy</option>
+  </select>
+</div>
+
+<div class="form-group">
+
+    <label for="road_signs_present">Road signs present:</label>
+    <input type="text" id="road_signs_present" name="road_signs_present" placeholder="Enter Road signs present (bool)">
+</div>
+
+<div class="form-group">
+
+    <label for="public_road">Public road:</label>
+    <input type="text" id="public_road" name="public_road" placeholder="Enter public road (bool)">
+</div>
+
+
+<div class="form-group">
+  <label for="time_of_day">Time of day:</label>
+  <select id="time_of_day" name="time_of_day">
+    <option value="morning">morning</option>
+    <option value="evening">evening</option>
+    <option value="afternoon">afternoon</option>
+
+  </select>
+</div>
+
+<div class="form-group">
+
+    <label for="holiday">Holiday:</label>
+    <input type="text" id="holiday" name="holiday" placeholder="Enter holiday (bool)">
+</div>
+
+<div class="form-group">
+
+    <label for="school_season">School season:</label>
+    <input type="text" id="school_season" name="school_season" placeholder="Enter school season (bool)">
+</div>
+
+<div class="form-group">
+
+    <label for="num_reported_accidents">Num reported accidents:</label>
+    <input type="text" id="num_reported_accidents" name="num_reported_accidents" placeholder="Enter num_reported_accidents (int)">
+  </div>
+
+<div style="clear:both;"></div>
+  <input type="submit" value="Submit">
+</form>
+</body>
+</html>
