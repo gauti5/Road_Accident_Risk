@@ -19,8 +19,8 @@ class predict_pipeline:
             model_path=os.path.join("Artifacts", "Model.pkl")
             preprocessor_path=os.path.join("Artifacts", "preprocessor.pkl")
                 
-            model=load_object(model_path)
-            preprocessor=load_object(preprocessor_path)
+            model=load_object(filepath=model_path)
+            preprocessor=load_object(filepath=preprocessor_path)
                 
             data_scaled=preprocessor.transform(features)
             pred=model.predict(data_scaled)
@@ -33,6 +33,7 @@ class predict_pipeline:
         
 class CustomData:
     def __init__(self,
+                 road_type:object,
                  num_lanes:int,
                  curvature:float,
                  speed_limit:int,
@@ -44,21 +45,23 @@ class CustomData:
                  holiday:bool,
                  school_season:bool,
                  num_reported_accidents:int):
-        self.num_lanes=num_lanes,
-        self.curvature=curvature,
-        self.speed_limit=speed_limit,
-        self.lighting=lighting,
-        self.weather=weather,
-        self.road_signs_present=road_signs_present,
-        self.public_road=public_road,
-        self.time_of_day=time_of_day,
-        self.holiday=holiday,
-        self.school_season=school_season,
+        self.road_type=road_type
+        self.num_lanes=num_lanes
+        self.curvature=curvature
+        self.speed_limit=speed_limit
+        self.lighting=lighting
+        self.weather=weather
+        self.road_signs_present=road_signs_present
+        self.public_road=public_road
+        self.time_of_day=time_of_day
+        self.holiday=holiday
+        self.school_season=school_season
         self.num_reported_accidents=num_reported_accidents
     
     def get_data_as_a_frame(self):
         try:
             custom_data_input_dict={
+                'road_type':[self.road_type],
                 'num_lanes':[self.num_lanes],
                 'curvature':[self.curvature],
                 'speed_limit':[self.speed_limit],
